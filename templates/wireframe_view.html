@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Upcoming Trips{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+<h1>Number of plans: {{ plans_count }}</h1>
+{% if plans_count > 0 %}
+<ul class="nav nav-tabs" role="tablist">
+{% for i in range(plans_count) %}
+<li class="nav-item"><a class="nav-link {% if i == 0 %}active{% endif %}" data-bs-toggle="tab" href="#plan{{ i }}">Plan {{ i+1 }}</a></li>
+{% endfor %}
+</ul>
+<div class="tab-content">
+    {% for i in range(plans_count) %}
+    <div class="tab-pane container-fluid {% if i == 0 %}active{% endif %}" id="plan{{ i }}">
+        <h2>{{ plans_list[i].get_destination() }}</h2>
+        <div class="d-flex">
+        <div class="col-md-6 col-lg-8">
+            <section class="col-md-6 col-lg-4">
+                <h4>People</h4>
+                <p>{{ plans_list[i].get_people() }}</p>
+            </section>
+            <section class="col-md-6 col-lg-4">
+                <h4>Start Date</h4>
+                <p>{{ plans_list[i].get_start_date() }}</p>
+            </section>
+            <section class="col-md-6 col-lg-4">
+                <h4>Duration</h4>
+                <p>{{ plans_list[i].get_duration() }}</p>
+            </section>
+            <section class="col-md-6 col-lg-4">
+                <h4>Accommodation</h4>
+                <p>{{ accommodation_list[plans_list[i].get_destination()][plans_list[i].get_accommodation()] }}</p>
+            </section>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <h3>Edit</h3>
+            <form method="post">
+                <div class="form-group mb-3">
+
+                    <label for="people">People</label>
+                    <input class="form-control" id="people" min="1" name="people" required="" type="number" value="">
+
+
+                </div>
+                <div class="form-group mb-3">
+
+                    <label for="duration">Duration in days</label>
+                    <input class="form-control" id="duration" min="1" name="duration" required="" type="number" value="">
+
+
+                </div>
+                <input type="hidden" name="plan_to_edit" value="{{ i }}">
+                <!-- Button trigger modal from the bootstrap docs lol -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#EditModal{{ i }}">
+                  Save changes
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="EditModal{{ i }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p>Are you sure to save changes? Administrative fees may be charged.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <input type="submit" class="btn btn-primary">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </form>
+            <hr>
+            <form method="post" id="delform{{ i }}">
+                <input type="hidden" name="plan_to_del" value="{{ i }}">
+            <!-- Button trigger modal from bootstrap docs lol -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal{{ i }}">
+              Cancel Trip
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="DeleteModal{{ i }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure about cancelling your trip? Administrative fees will be charged.
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <input type="submit" value="Yes" class="btn btn-danger">
+                  </div>
+                </div>
+              </div>
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

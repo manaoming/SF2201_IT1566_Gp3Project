@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Library Loan System - Contact Us{% endblock %}
+
+{% block content %}
+<h1 class="display-4">Contact Us</h1>
+<ul class="nav nav-tabs">
+  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#DIT">DIT</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#menu1">Menu 1</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#menu2">Menu 2</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane container-fluid active" id="DIT">
+    <br>
+    <h2>IT1166 App Development Project</h2>
+    <br>
+    <table class="table table-striped">
+    <thead>
+    <tr>
+    <th>Name</th>
+    <th>Role</th>
+    <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Mr. Faris Foo</td>
+      <td>Module Leader</td>
+      <td><a href="mailto:faris_foo@nyp.edu.sg">faris_foo@nyp.edu.sg</a></td>
+    </tr>
+    <tr>
+      <td>Mr. Chan Yuen Loong</td>
+      <td>Module Tutor</td>
+      <td><a href="mailto:chan_yuen_loong@nyp.edu.sg">chan_yuen_loong@nyp.edu.sg</a></td>
+    </tr>
+    <tr>
+      <td>Ms. Tan Siew Lan</td>
+      <td>Module Tutor</td>
+      <td><a href="mailto:tan_siew_lan@nyp.edu.sg">tan_siew_lan@nyp.edu.sg</a></td>
+    </tr>
+    </tbody>
+    </table>
+  </div>
+  <div class="tab-pane container-fluid" id="menu1">menu1</div>
+  <div class="tab-pane container-fluid" id="menu2">menu2</div>
+</div>
+{% endblock %}

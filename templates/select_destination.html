@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Wireframe{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+<h1 class="text-center display-1">Our destinations</h1>
+<br><br>
+<div class="container container-fluid justify-content-evenly">
+    <div class="row">
+
+        {% for destination in destinations %}
+    <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3 container clearfix mb-4"><a href="#" onclick="localStorage['destination'] = '{{ destination }}'; document.getElementById('destination').value = '{{ destination }}'; document.getElementById('submit').click()"><img class="float-md-start me-3 border border-5 border-warning" width="50%" src="/static/img/placeholder-square.jpg"><p class="fs-3">{{ destination }}</p><p class="fs-5">{{ destinations[destination] }}</p></a></div>
+    {% endfor %}
+
+    </div>
+</div>
+<form style="display:none" method="POST" id="dest_form" action="">{{ render_field(form.destination) }}<button type="submit" id="submit"></form>
+{% endblock %}
